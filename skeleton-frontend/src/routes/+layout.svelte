@@ -14,16 +14,23 @@
 <AppShell>
   <svelte:fragment slot="header">
     <AppBar>
-      {#if !$page.data.user}
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-      {/if}
-      {#if $page.data.user}
-        <a href="/admin">Admin</a>
-        <form action="/logout" method="POST">
-          <button type="submit">Log out</button>
-        </form>
-      {/if}
+      <svelte:fragment slot="lead">
+        {#if !$page.data.user}
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+        {/if}
+        {#if $page.data.user}
+          <a href="/admin">Admin</a>
+          <form action="/logout" method="POST">
+            <button type="submit">Log out</button>
+          </form>
+        {/if}
+      </svelte:fragment>
+      <svelte:fragment slot="trail">
+        {#if $page.data.user}
+          <label for="user">{$page.data.user.name}</label>
+        {/if}
+      </svelte:fragment>
     </AppBar>
   </svelte:fragment>
   <svelte:fragment slot="sidebarLeft">
