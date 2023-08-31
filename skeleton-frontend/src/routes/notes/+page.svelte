@@ -3,6 +3,10 @@
   import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton'
 
   let takingNote = false
+  let noteTitle = ''
+  let noteInputValue = ''
+  let noteInput: HTMLInputElement
+  let notes = []
 
   onMount(() => {
     console.log('notes page')
@@ -20,22 +24,34 @@
 
   function documentClick(event: MouseEvent) {
     if (event.target.parentNode.id !== 'notetaker') {
+      console.log(noteTitle, noteInputValue)
       takingNote = false
+      noteTitle = ''
+      noteInputValue = ''
     }
   }
+
+  function openNoteTaking() {
+    takingNote = true
+    setTimeout(() => {
+      noteInput.focus()
+    })
+  }
+
+  function createCard() {}
 </script>
 
 <svelte:window on:mousedown={documentClick} />
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 {#if !takingNote}
-  <div class="card note-creator" on:click={() => (takingNote = true)}>
+  <div class="card note-creator" on:click={openNoteTaking}>
     <input placeholder="Take a note..." />
   </div>
 {:else}
   <div id="notetaker" class="card note-creator">
-    <input placeholder="Title" />
-    <input placeholder="Take a note..." />
+    <input bind:value={noteTitle} placeholder="Title" />
+    <input bind:this={noteInput} bind:value={noteInputValue} placeholder="Take a note..." />
   </div>
 {/if}
 <div class="note-grid">
