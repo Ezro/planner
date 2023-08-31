@@ -35,9 +35,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@neodrag/svelte": "^2.0.3",
 		"@prisma/client": "^5.2.0",
 		"bcrypt": "^5.1.1",
 		"google-auth-library": "^9.0.0",
+		"svelte-feather-icons": "^4.0.1",
 		"svelte-local-storage-store": "^0.6.0"
 	}
 }

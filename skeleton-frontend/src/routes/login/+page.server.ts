@@ -7,7 +7,6 @@ import { updateSession } from '$lib/helpers'
 
 export const load: PageServerLoad = async ({ locals }) => {
     if (locals.user) {
-        console.log('Hi')
         throw redirect(302, '/')
     }
 }

@@ -23,6 +23,34 @@
     {/if}
     <button type="submit">Log in</button>
   </form>
+  <!-- TODO: Support OAuth -->
+  <!-- <hr style="width: 25%; margin: 15px 0 15px 0" />
+  <div class="flex justify-center space-x-2">
+    <form class="auth-form" method="post" action="/oauth_begin">
+      <button type="submit">
+        <img
+          src="/google_signin_buttons/web/1x/btn_google_signin_dark_pressed_web.png"
+          alt="Google Sign In"
+        /></button
+      >
+    </form>
+    <form class="auth-form" method="post" action="/oauth_begin">
+      <button type="submit">
+        <img
+          src="/google_signin_buttons/web/1x/btn_google_signin_dark_pressed_web.png"
+          alt="Google Sign In"
+        /></button
+      >
+    </form>
+    <form class="auth-form" method="post" action="/oauth_begin">
+      <button type="submit">
+        <img
+          src="/google_signin_buttons/web/1x/btn_google_signin_dark_pressed_web.png"
+          alt="Google Sign In"
+        /></button
+      >
+    </form>
+  </div> -->
 </div>
 
 <style>
