@@ -18,11 +18,10 @@
   function openNote(noteIdStr: string) {
     let parsedNoteId = parseInt(noteIdStr)
     let note = notes[parsedNoteId]
-    let title = note.title ? note.title : 'Title'
     const modal: ModalSettings = {
       type: 'prompt',
-      title: title,
-      body: 'This is an example note.',
+      title: note.title ? note.title : 'Title',
+      body: note.body,
       image: 'https://i.imgur.com/WOgTG96.gif'
     }
     modalStore.trigger(modal)
@@ -133,6 +132,7 @@
       {/if}
       <div
         class="p-4 space-y-4"
+        style="word-wrap: break-word;"
         on:click={() => {
           openNote(noteId)
         }}
