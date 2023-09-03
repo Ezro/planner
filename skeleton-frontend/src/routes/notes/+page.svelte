@@ -15,13 +15,13 @@
     // console.log('notes page');
   })
 
-  function openNote(event: MouseEvent) {
-    if (event.target?.closest('.card-footer')) {
-      return
-    }
+  function openNote(noteIdStr: string) {
+    let parsedNoteId = parseInt(noteIdStr)
+    let note = notes[parsedNoteId]
+    let title = note.title ? note.title : 'Title'
     const modal: ModalSettings = {
       type: 'prompt',
-      title: 'Example Note',
+      title: title,
       body: 'This is an example note.',
       image: 'https://i.imgur.com/WOgTG96.gif'
     }
@@ -59,8 +59,8 @@
   }
 
   function deleteNote(noteIdStr: string) {
-    noteId = parseInt(noteIdStr)
-    delete notes[noteId]
+    let parsedNoteId = parseInt(noteIdStr)
+    delete notes[parsedNoteId]
     notes = notes
   }
 
@@ -125,18 +125,18 @@
 <div class="note-grid">
   {#each Object.entries(notes).reverse() as [noteId, note]}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div
-      class="note card card-hover"
-      on:click={() => {
-        openNote(noteId)
-      }}
-    >
+    <div class="note card card-hover">
       {#if note.title}
         <div class="card-header">
           <h6 class="h6" data-toc-ignore>{note.title}</h6>
         </div>
       {/if}
-      <div class="p-4 space-y-4">
+      <div
+        class="p-4 space-y-4"
+        on:click={() => {
+          openNote(noteId)
+        }}
+      >
         <article>
           <p>
             <!-- cspell:disable -->
