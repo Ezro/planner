@@ -19,7 +19,7 @@
     const modalSettings: ModalSettings = {
       type: 'component',
       component: 'noteModal',
-      title: note.title ?? 'Title',
+      title: note.title,
       body: note.body,
       response: () => closeNote
     }
