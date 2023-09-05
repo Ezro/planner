@@ -3,15 +3,27 @@
   import '@skeletonlabs/skeleton/styles/skeleton.css'
   import '../app.postcss'
   import { page } from '$app/stores'
-  import { AppBar, AppRail, AppRailAnchor, AppShell, Modal } from '@skeletonlabs/skeleton'
+  import {
+    AppBar,
+    AppRail,
+    AppRailAnchor,
+    AppShell,
+    Modal,
+    type ModalComponent
+  } from '@skeletonlabs/skeleton'
   import { FileIcon } from 'svelte-feather-icons'
+  import NoteModal from './notes/NoteModal.svelte'
+  const modalComponentRegistry: Record<string, ModalComponent> = {
+    noteModal: { ref: NoteModal }
+  }
 </script>
+
+<Modal components={modalComponentRegistry} />
 
 <svelte:head>
   <title>Planner</title>
 </svelte:head>
 
-<Modal />
 <AppShell>
   <svelte:fragment slot="header">
     <AppBar>
