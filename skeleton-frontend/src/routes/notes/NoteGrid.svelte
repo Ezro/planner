@@ -3,6 +3,7 @@
   import { Trash2Icon } from 'svelte-feather-icons'
   import { notes } from './noteStore'
   import { onMount } from 'svelte'
+  import NoteDisplay from './NoteDisplay.svelte'
 
   let _notes: { [key: number]: Note }
   let openedNoteId: number = 0
@@ -52,6 +53,7 @@
             <h6 class="h6" data-toc-ignore>{note.title}</h6>
           </div>
         {/if}
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
           class="p-4 space-y-4"
           style="word-wrap: break-word;"
@@ -61,13 +63,14 @@
         >
           {#if note.body}
             <article>
-              <p style="white-space: pre;">
-                {note.body}
-              </p>
+              {#key noteId}
+                <NoteDisplay bind:content={note.body} />
+              {/key}
             </article>
           {/if}
         </div>
         <div class="card card-footer">
+          <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
           <form
             on:click={() => {
               deleteNote(noteId)

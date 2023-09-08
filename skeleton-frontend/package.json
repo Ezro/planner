@@ -27,7 +27,8 @@
 		"postcss": "^8.4.28",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
-		"svelte": "^3.54.0",
+		"sass": "^1.66.1",
+		"svelte": "^4.0.1",
 		"svelte-check": "^3.0.1",
 		"tailwindcss": "^3.3.3",
 		"tslib": "^2.4.1",
@@ -38,11 +39,18 @@
 	"dependencies": {
 		"@neodrag/svelte": "^2.0.3",
 		"@prisma/client": "^5.2.0",
+		"@tabler/icons": "^2.33.0",
+		"@tabler/icons-svelte": "^2.33.0",
+		"@tiptap/core": "^2.1.8",
+		"@tiptap/extension-task-item": "^2.1.8",
+		"@tiptap/extension-task-list": "^2.1.8",
+		"@tiptap/pm": "^2.1.8",
+		"@tiptap/starter-kit": "^2.1.8",
 		"@types/marked": "^5.0.1",
 		"bcrypt": "^5.1.1",
 		"google-auth-library": "^9.0.0",
-		"marked": "^8.0.0",
 		"svelte-feather-icons": "^4.0.1",
-		"svelte-local-storage-store": "^0.6.0"
+		"svelte-local-storage-store": "^0.6.0",
+		"svelte-tiptap": "^1.1.2"
 	}
 }
