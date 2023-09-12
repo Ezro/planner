@@ -7,6 +7,7 @@
 
   let _notes: { [key: number]: Note }
   let openedNoteId: number = 0
+  let editable = false
 
   onMount(() => {
     notes.subscribe((value) => {
@@ -22,12 +23,13 @@
       component: 'noteModal',
       title: note.title,
       body: note.body,
-      response: () => closeNote
+      response: closeNote
     }
     modalStore.trigger(modalSettings)
   }
 
   export function closeNote(modifiedTitle: string, modifiedBody: string) {
+    console.log('closeNote', modifiedTitle, modifiedBody)
     if (modifiedTitle === undefined || modifiedBody === undefined) {
       return
     }
@@ -63,8 +65,8 @@
         >
           {#if note.body}
             <article>
-              {#key noteId}
-                <NoteDisplay bind:content={note.body} />
+              {#key note.body}
+                <NoteDisplay bind:content={note.body} bind:editable />
               {/key}
             </article>
           {/if}

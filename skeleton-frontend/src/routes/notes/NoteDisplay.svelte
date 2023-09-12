@@ -10,20 +10,24 @@
   let element: HTMLDivElement
   let editor: Editor
   export let content: string
+  export let editable: boolean
 
   onMount(() => {
-    console.log(content)
     editor = new Editor({
       element: element,
       extensions: [StarterKit, TaskList, TaskItem],
       content: content,
-      editable: false
+      editable: editable
     })
   })
 
   onDestroy(() => {
     editor.destroy()
   })
+
+  export function getHTML() {
+    return editor.getHTML()
+  }
 </script>
 
 <div bind:this={element} />

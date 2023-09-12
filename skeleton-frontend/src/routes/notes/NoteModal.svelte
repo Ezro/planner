@@ -1,13 +1,17 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { modalStore } from '@skeletonlabs/skeleton'
+  import NoteDisplay from './NoteDisplay.svelte'
   let noteTitle: string
   let noteInputValue: string
+  let editable = true
+  let getHTML: () => string
 
   onMount(() => {
     noteTitle = $modalStore[0].title ?? ''
     noteInputValue = $modalStore[0].body ?? ''
   })
+
   // Props
   /** Exposes parent props to this component. */
   export let parent: any
@@ -15,7 +19,9 @@
   // We've created a custom submit function to pass the response and close the modal.
   function onFormSubmit(): void {
     // if ($modalStore[0].response) $modalStore[0].response(formData)
-    $modalStore[0].response(noteTitle, noteInputValue)
+    if ($modalStore[0].response) {
+      $modalStore[0].response(noteTitle, getHTML())
+    }
     modalStore.close()
   }
 
@@ -30,7 +36,10 @@
       <div contenteditable="true" bind:innerText={noteTitle} />
     </header>
     <article>
-      <textarea bind:value={noteInputValue} class="note-body" />
+      {#key noteInputValue}
+        <NoteDisplay bind:content={noteInputValue} bind:editable bind:getHTML />
+      {/key}
+      <!-- <textarea bind:value={noteInputValue} class="note-body" /> -->
     </article>
     <!-- prettier-ignore -->
     <footer class="modal-footer {parent.regionFooter}">
