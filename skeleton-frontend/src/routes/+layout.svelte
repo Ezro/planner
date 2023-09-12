@@ -11,7 +11,6 @@
     Modal,
     type ModalComponent
   } from '@skeletonlabs/skeleton'
-  import { FileIcon } from 'svelte-feather-icons'
   import { IconFileTime, IconLogout, IconNotebook, IconNotes } from '@tabler/icons-svelte'
   import NoteModal from './notes/NoteModal.svelte'
   const modalComponentRegistry: Record<string, ModalComponent> = {
@@ -52,7 +51,7 @@
   <svelte:fragment slot="sidebarLeft">
     {#if $page.data.user}
       <AppRail>
-        <AppRailAnchor href="/notes" title="notes" selected="true">
+        <AppRailAnchor href="/notes" title="notes" selected={$page.url.pathname == '/notes'}>
           <!-- <FileIcon size="24" />
           <span>Notes</span> -->
           <svelte:fragment slot="lead">
@@ -60,13 +59,13 @@
           </svelte:fragment>
           Notes
         </AppRailAnchor>
-        <AppRailAnchor href="/" title="something-else">
+        <AppRailAnchor href="/pages" title="pages" selected={$page.url.pathname == '/pages'}>
           <svelte:fragment slot="lead">
             <IconNotebook size="24" />
           </svelte:fragment>
           Pages
         </AppRailAnchor>
-        <AppRailAnchor href="/" title="something-else">
+        <AppRailAnchor href="/history" title="history" selected={$page.url.pathname == '/history'}>
           <svelte:fragment slot="lead">
             <IconFileTime size="24" />
           </svelte:fragment>
