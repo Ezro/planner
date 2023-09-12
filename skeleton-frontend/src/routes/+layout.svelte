@@ -12,6 +12,7 @@
     type ModalComponent
   } from '@skeletonlabs/skeleton'
   import { FileIcon } from 'svelte-feather-icons'
+  import { IconFileTime, IconLogout, IconNotebook, IconNotes } from '@tabler/icons-svelte'
   import NoteModal from './notes/NoteModal.svelte'
   const modalComponentRegistry: Record<string, ModalComponent> = {
     noteModal: { ref: NoteModal }
@@ -33,15 +34,17 @@
           <a href="/register">Register</a>
         {/if}
         {#if $page.data.user}
-          <a href="/admin">Admin</a>
-          <form action="/logout" method="POST">
-            <button type="submit">Log out</button>
-          </form>
+          <a href="/admin">{$page.data.user.name}</a>
         {/if}
       </svelte:fragment>
       <svelte:fragment slot="trail">
         {#if $page.data.user}
-          <label for="user">{$page.data.user.name}</label>
+          <form action="/logout" method="POST">
+            <button class="btn variant-soft-surface btn-sm hover:variant-soft-primary">
+              Sign Out
+              <IconLogout size="24" />
+            </button>
+          </form>
         {/if}
       </svelte:fragment>
     </AppBar>
@@ -50,12 +53,24 @@
     {#if $page.data.user}
       <AppRail>
         <AppRailAnchor href="/notes" title="notes" selected="true">
-          <FileIcon size="24" />
-          <span>Notes</span>
+          <!-- <FileIcon size="24" />
+          <span>Notes</span> -->
+          <svelte:fragment slot="lead">
+            <IconNotes size="24" />
+          </svelte:fragment>
+          Notes
         </AppRailAnchor>
         <AppRailAnchor href="/" title="something-else">
-          <FileIcon size="24" />
-          <span>Something Else</span>
+          <svelte:fragment slot="lead">
+            <IconNotebook size="24" />
+          </svelte:fragment>
+          Pages
+        </AppRailAnchor>
+        <AppRailAnchor href="/" title="something-else">
+          <svelte:fragment slot="lead">
+            <IconFileTime size="24" />
+          </svelte:fragment>
+          History
         </AppRailAnchor>
       </AppRail>
     {/if}
