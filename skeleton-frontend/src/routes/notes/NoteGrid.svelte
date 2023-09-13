@@ -4,6 +4,7 @@
   import { notes } from './noteStore'
   import { onMount } from 'svelte'
   import NoteDisplay from './NoteDisplay.svelte'
+  import type { Note } from './Note'
 
   let _notes: { [key: number]: Note }
   let openedNoteId: number = 0
@@ -43,6 +44,8 @@
     delete _notes[parsedNoteId]
     notes.set(_notes)
   }
+
+  let getHTML: () => string
 </script>
 
 {#if _notes}
@@ -66,7 +69,7 @@
           {#if note.body}
             <article>
               {#key note.body}
-                <NoteDisplay bind:content={note.body} bind:editable />
+                <NoteDisplay bind:content={note.body} bind:editable bind:getHTML />
               {/key}
             </article>
           {/if}

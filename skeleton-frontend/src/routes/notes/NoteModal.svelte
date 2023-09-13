@@ -2,10 +2,12 @@
   import { onMount } from 'svelte'
   import { modalStore } from '@skeletonlabs/skeleton'
   import NoteDisplay from './NoteDisplay.svelte'
+  import NoteTakerInput from './NoteTakerInput.svelte'
   let noteTitle: string
   let noteInputValue: string
   let editable = true
   let getHTML: () => string
+  let addImage: (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => string
 
   onMount(() => {
     noteTitle = $modalStore[0].title ?? ''
@@ -39,7 +41,6 @@
       {#key noteInputValue}
         <NoteDisplay bind:content={noteInputValue} bind:editable bind:getHTML />
       {/key}
-      <!-- <textarea bind:value={noteInputValue} class="note-body" /> -->
     </article>
     <!-- prettier-ignore -->
     <footer class="modal-footer {parent.regionFooter}">
