@@ -7,7 +7,8 @@
   import TaskItem from '@tiptap/extension-task-item'
   import { Image as TipTapImage } from '@tiptap/extension-image'
   import { onMount, onDestroy } from 'svelte'
-  import NoteEditBar from './NoteEditBar.svelte'
+  import NoteHeaderEditBar from './NoteHeaderEditBar.svelte'
+  import NoteFooterEditBar from './NoteFooterEditBar.svelte'
 
   let element: HTMLDivElement
   let editor: Editor
@@ -32,17 +33,12 @@
   export function getHTML(): string {
     return editor.getHTML()
   }
-
-  export function addImage(e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-    let image = e.target.files[0]
-    let reader = new FileReader()
-    reader.readAsDataURL(image)
-    reader.onload = (e) => {
-      console.log('addImage', e.target.result)
-      editor.commands.setImage({ src: e.target.result })
-    }
-  }
 </script>
 
-<NoteEditBar bind:editor />
+{#if editor}
+  <NoteHeaderEditBar bind:editor />
+{/if}
 <div bind:this={element} />
+{#if editor}
+  <NoteFooterEditBar bind:editor />
+{/if}

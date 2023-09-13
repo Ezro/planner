@@ -7,6 +7,8 @@
   import TaskList from '@tiptap/extension-task-list'
   import TaskItem from '@tiptap/extension-task-item'
   import { Image as TipTapImage } from '@tiptap/extension-image'
+  import NoteHeaderEditBar from './NoteHeaderEditBar.svelte'
+  import NoteFooterEditBar from './NoteFooterEditBar.svelte'
 
   let element: HTMLDivElement
   let editor: Editor
@@ -21,6 +23,7 @@
       content: content,
       editable: editable
     })
+    editor.commands.focus()
   })
 
   onDestroy(() => {
@@ -32,4 +35,10 @@
   }
 </script>
 
+{#if editable}
+  <NoteHeaderEditBar bind:editor />
+{/if}
 <div bind:this={element} />
+{#if editable}
+  <NoteFooterEditBar bind:editor />
+{/if}

@@ -1,10 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { ImageIcon } from 'svelte-feather-icons'
   import { notes, nextNoteId } from './noteStore'
   import NoteTakerInput from './NoteTakerInput.svelte'
   import type { Note } from './Note'
-  import NoteEditBar from './NoteEditBar.svelte'
   let _notes: { [key: number]: Note }
   let _nextNoteId: number
 
@@ -12,7 +10,6 @@
   let noteTitle = ''
 
   let getHTML: () => string
-  let addImage: (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => string
 
   onMount(() => {
     notes.subscribe((value) => (_notes = value))
@@ -29,7 +26,6 @@
     }
     takingNote = false
     let noteInputValue = getHTML()
-    console.log('createNote', noteInputValue)
     if (noteTitle === '' && (noteInputValue === '' || noteInputValue === '<p></p>')) {
       return
     }
@@ -46,16 +42,6 @@
     noteTitle = ''
     noteInputValue = ''
   }
-
-  let fileInput: HTMLInputElement
-
-  const onClick = () => {
-    fileInput.click()
-  }
-
-  const onFileSelected = (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
-    addImage(e)
-  }
 </script>
 
 {#if takingNote}
@@ -64,22 +50,7 @@
       <form id="notetaker" on:submit={createNote}>
         <input bind:value={noteTitle} placeholder="Title" />
       </form>
-      <NoteTakerInput bind:getHTML bind:addImage />
-    </div>
-    <div class="card-footer create-note-footer">
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-      <form style="width: 18px; padding-top: 15px" on:click={onClick}>
-        <ImageIcon size="18" />
-        <input
-          style="display:none"
-          aria-label="lorem ipsum"
-          type="file"
-          accept=".jpg, .jpeg, .png"
-          on:change={(e) => onFileSelected(e)}
-          bind:this={fileInput}
-        />
-      </form>
+      <NoteTakerInput bind:getHTML />
     </div>
   </div>
 {:else}
@@ -97,8 +68,5 @@
     margin: 2rem;
     max-width: 20rem;
     align-content: center;
-  }
-  .create-note-footer {
-    display: flex;
   }
 </style>

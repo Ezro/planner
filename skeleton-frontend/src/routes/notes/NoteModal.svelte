@@ -37,11 +37,9 @@
     <header class={cHeader}>
       <div contenteditable="true" bind:innerText={noteTitle} />
     </header>
-    <article>
-      {#key noteInputValue}
-        <NoteDisplay bind:content={noteInputValue} bind:editable bind:getHTML />
-      {/key}
-    </article>
+    {#key noteInputValue}
+      <NoteDisplay bind:content={noteInputValue} bind:editable bind:getHTML />
+    {/key}
     <!-- prettier-ignore -->
     <footer class="modal-footer {parent.regionFooter}">
         <button class="btn {parent.buttonNeutral}" on:click={() => modalStore.close()}>Cancel</button>

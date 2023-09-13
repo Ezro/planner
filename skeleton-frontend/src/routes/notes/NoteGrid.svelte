@@ -30,7 +30,6 @@
   }
 
   export function closeNote(modifiedTitle: string, modifiedBody: string) {
-    console.log('closeNote', modifiedTitle, modifiedBody)
     if (modifiedTitle === undefined || modifiedBody === undefined) {
       return
     }
