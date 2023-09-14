@@ -29,13 +29,34 @@
     modalStore.trigger(modalSettings)
   }
 
-  export function closeNote(modifiedTitle: string, modifiedBody: string) {
+  export async function closeNote(modifiedTitle: string, modifiedBody: string) {
     if (modifiedTitle === undefined || modifiedBody === undefined) {
       return
     }
-    _notes[openedNoteId].title = modifiedTitle
-    _notes[openedNoteId].body = modifiedBody
-    notes.set(_notes)
+    try {
+      let title = modifiedTitle
+      let body = modifiedBody
+      let id = openedNoteId
+      const response = await fetch('/notes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, body, id })
+      })
+
+      if (response.status === 201) {
+        const { noteId } = await response.json()
+        console.log('Note and NoteEvent updated:', noteId)
+        _notes[openedNoteId].title = modifiedTitle
+        _notes[openedNoteId].body = modifiedBody
+        notes.set(_notes)
+      } else {
+        console.error('Error creating Note and NoteEvent')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
   }
 
   function deleteNote(noteIdStr: string) {

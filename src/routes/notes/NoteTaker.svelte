@@ -20,7 +20,7 @@
     takingNote = true
   }
 
-  export function createNote() {
+  export async function createNote() {
     if (!getHTML || !takingNote) {
       return
     }
@@ -29,16 +29,39 @@
     if (noteTitle === '' && (noteInputValue === '' || noteInputValue === '<p></p>')) {
       return
     }
-    let note: Note = {
-      id: _nextNoteId,
-      title: noteTitle,
-      createTime: Date.now(),
-      body: noteInputValue
+    try {
+      let title = noteTitle
+      let body = noteInputValue
+      let id = undefined
+      let postBody = JSON.stringify({ title, body, id })
+      console.log('postBody', postBody)
+      const response = await fetch('/notes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: postBody
+      })
+
+      if (response.status === 201) {
+        const { noteId } = await response.json()
+        console.log('Note and NoteEvent created:', noteId)
+        _nextNoteId = noteId
+        let note: Note = {
+          id: _nextNoteId,
+          title: noteTitle,
+          time: Date.now(),
+          body: noteInputValue
+        }
+        _notes[_nextNoteId] = note
+        notes.set(_notes)
+        nextNoteId.set(_nextNoteId)
+      } else {
+        console.error('Error creating Note and NoteEvent')
+      }
+    } catch (error) {
+      console.error('Error:', error)
     }
-    _notes[_nextNoteId] = note
-    _nextNoteId += 1
-    notes.set(_notes)
-    nextNoteId.set(_nextNoteId)
     noteTitle = ''
     noteInputValue = ''
   }
