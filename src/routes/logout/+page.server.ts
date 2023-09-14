@@ -11,7 +11,6 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
     default({ cookies }) {
-        console.log('hi')
         cookies.set('session', '', {
             path: '/',
             expires: new Date(0),

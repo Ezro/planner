@@ -32,7 +32,7 @@ model Roles {
 model Note {
   id        Int         @id @default(autoincrement())
   time      DateTime    @default(now())
-  noteId    Int
+  uuid      String
   title     String
   body      Bytes
   NoteEvent NoteEvent[]
@@ -45,8 +45,8 @@ model NoteEvent {
   sequenceId Int
   time       DateTime @default(now())
   eventType  String
-  data       Note     @relation(fields: [noteId], references: [id])
-  noteId     Int
+  data       Note?    @relation(fields: [noteId], references: [id])
+  noteId     Int?
   user       User     @relation(fields: [userId], references: [id])
   userId     String
 

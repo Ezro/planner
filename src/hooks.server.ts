@@ -1,5 +1,5 @@
 import type { Handle } from '@sveltejs/kit'
-import { db } from '$lib/database'
+import { db, getLatestUserNotes } from '$lib/database'
 
 export const handle: Handle = async ({ event, resolve }) => {
     const session = event.cookies.get('session')
@@ -15,8 +15,8 @@ export const handle: Handle = async ({ event, resolve }) => {
             id: user.id,
             name: user.username,
             role: user.role.name,
+            notes: await getLatestUserNotes(user.id)
         }
     }
-    console.log('session', session)
     return await resolve(event)
 }

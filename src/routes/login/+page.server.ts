@@ -23,7 +23,6 @@ const login: Action = async ({ request, cookies }) => {
         !password) {
         return fail(400, { invalid: true })
     }
-    console.log(username, password)
     const user = await db.user.findUnique({ where: { username } })
     if (!user) {
         return fail(400, { credentials: true })

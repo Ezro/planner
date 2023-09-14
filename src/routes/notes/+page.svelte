@@ -2,7 +2,7 @@
   import NoteTaker from './NoteTaker.svelte'
   import NoteGrid from './NoteGrid.svelte'
 
-  let createNote: () => void
+  let createNote: () => Promise<void>
 
   function documentClick(event: MouseEvent) {
     if (event.target?.parentNode.id === 'page') {

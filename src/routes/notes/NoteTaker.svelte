@@ -1,10 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { notes, nextNoteId } from './noteStore'
+  import { notes } from './noteStore'
   import NoteTakerInput from './NoteTakerInput.svelte'
   import type { Note } from './Note'
-  let _notes: { [key: number]: Note }
-  let _nextNoteId: number
+
+  let _notes: { [key: string]: Note }
 
   let takingNote: boolean = false
   let noteTitle = ''
@@ -13,7 +13,6 @@
 
   onMount(() => {
     notes.subscribe((value) => (_notes = value))
-    nextNoteId.subscribe((value) => (_nextNoteId = value))
   })
 
   function openNoteTaking() {
@@ -34,7 +33,6 @@
       let body = noteInputValue
       let id = undefined
       let postBody = JSON.stringify({ title, body, id })
-      console.log('postBody', postBody)
       const response = await fetch('/notes', {
         method: 'POST',
         headers: {
@@ -44,18 +42,16 @@
       })
 
       if (response.status === 201) {
-        const { noteId } = await response.json()
-        console.log('Note and NoteEvent created:', noteId)
-        _nextNoteId = noteId
+        const { uuid } = await response.json()
+        console.log('Note and NoteEvent created:', uuid)
         let note: Note = {
-          id: _nextNoteId,
+          uuid: uuid,
           title: noteTitle,
           time: Date.now(),
           body: noteInputValue
         }
-        _notes[_nextNoteId] = note
+        _notes[uuid] = note
         notes.set(_notes)
-        nextNoteId.set(_nextNoteId)
       } else {
         console.error('Error creating Note and NoteEvent')
       }

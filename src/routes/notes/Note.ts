@@ -1,6 +1,6 @@
 export interface Note {
-    id: number,
+    uuid: string,
     title: string
     body: string
-    time: number
+    time: Date
 }

@@ -7,6 +7,7 @@ declare namespace App {
 			id: string
 			name: string
 			role: string
+			notes: { [key: string]: Note }
 		}
 	}
 	// interface PageData {}
