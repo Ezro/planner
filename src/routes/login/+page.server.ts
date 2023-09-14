@@ -5,6 +5,8 @@ import bcrypt from 'bcrypt'
 import { db } from '$lib/database'
 import { updateSession } from '$lib/helpers'
 
+export const prerender = false
+
 export const load: PageServerLoad = async ({ locals }) => {
     if (locals.user) {
         throw redirect(302, '/')

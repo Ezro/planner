@@ -12,6 +12,8 @@ enum Roles {
     USER = 'USER',
 }
 
+export const prerender = false
+
 export const load: PageServerLoad = async ({ locals }) => {
     if (locals.user) {
         throw redirect(302, '/')
